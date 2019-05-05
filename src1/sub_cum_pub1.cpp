@@ -36,23 +36,23 @@ class coordinator
 	{
             node myNode( argc1, argv1);
             myNode.create();
-            chatter_pub = myNode.getHandle().advertise<std_msgs::String>("chatter1", 1000);
+            chatter_pub = myNode.getHandle().advertise<std_msgs::String>("chatter", 1000);
             sub = myNode.getHandle().subscribe("chatter", 1000, &coordinator::chatterCallback,this);
 	   ros::Rate loop_rate(10);
 		loop_rate.sleep();
         }
         void chatterCallback(const std_msgs::String::ConstPtr& msg)
 	{
-		  long int x=0,y=0;
+		  long int x=0;
 		   
 		  std_msgs::String msg1;
 
 		    std::stringstream ss1 (msg->data.c_str());
 		    ss1 >> x;
-		    y=x*x;
+		    x=x*x;
 
 		  std::stringstream ss2;
-		    ss2 <<y;
+		    ss2 <<x;
 		    msg1.data = ss2.str(); 
    
 		  ROS_INFO("%s", msg1.data.c_str());
